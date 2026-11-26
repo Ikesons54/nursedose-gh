@@ -83,7 +83,32 @@ test('Missing unit is rejected', () => {
 test('Steps are always present on success', () => {
   const r = calculateDose({ ordered: 500, orderedUnit: 'mg', stock: 1000, stockUnit: 'mg', volume: 2 });
   const titles = r.steps.map(s => s.title);
-  ['Read the question', 'Formula', 'Substitute', 'Answer'].forEach(t => assert.ok(titles.includes(t), t));
+  ['Read the question', 'Formula', 'Put in the numbers', 'Answer', 'Check it makes sense'].forEach(t => assert.ok(titles.includes(t), t));
+});
+
+test('Every step has simple-English "why" text', () => {
+  const r = calculateDose({ ordered: 0.5, orderedUnit: 'g', stock: 250, stockUnit: 'mg', volume: 5 });
+  r.steps.forEach(s => assert.ok(s.why && s.why.length > 10, s.title));
+});
+
+test('Sense check: order less than stock', () => {
+  const r = calculateDose({ ordered: 500, orderedUnit: 'mg', stock: 1000, stockUnit: 'mg', volume: 2 });
+  const c = r.steps.find(s => s.title === 'Check it makes sense');
+  assert.ok(c.text.includes('less than the full 2 ml'));
+});
+
+test('Sense check: order equals stock (tablet)', () => {
+  const r = calculateDose({ form: 'tablet', ordered: 500, orderedUnit: 'mg', stock: 500, stockUnit: 'mg' });
+  const c = r.steps.find(s => s.title === 'Check it makes sense');
+  assert.ok(c.text.includes('same as the stock'));
+  assert.ok(c.text.includes('one tablet'));
+});
+
+test('Sense check: order more than stock', () => {
+  const r = calculateDose({ form: 'tablet', ordered: 1000, orderedUnit: 'mg', stock: 500, stockUnit: 'mg' });
+  const c = r.steps.find(s => s.title === 'Check it makes sense');
+  assert.ok(c.text.includes('more than one tablet'));
+  assert.strictEqual(r.answerText, '2 tablets');
 });
 
 console.log('\n' + passed + ' passed');
