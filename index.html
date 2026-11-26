@@ -23,24 +23,75 @@
       <p>Step-by-step dose calculations for Ghana nursing students. Works without internet.</p>
     </section>
 
-    <section class="example" aria-labelledby="ex-title">
-      <h2 id="ex-title">A worked example</h2>
+    <section class="calc" aria-labelledby="calc-title">
+      <h2 id="calc-title">Dose calculator</h2>
+
+      <form id="calc-form" novalidate>
+        <fieldset class="seg">
+          <legend class="sr">Medicine form</legend>
+          <label><input type="radio" name="form" value="liquid" checked><span>Liquid / injection</span></label>
+          <label><input type="radio" name="form" value="tablet"><span>Tablet</span></label>
+        </fieldset>
+
+        <div class="field">
+          <label for="ordered">Ordered dose (what the doctor wrote)</label>
+          <div class="pair">
+            <input id="ordered" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 500">
+            <select id="orderedUnit" aria-label="Ordered dose unit">
+              <option value="mg">mg</option>
+              <option value="g">g</option>
+              <option value="mcg">mcg</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="stock">Stock dose (what is on the label)</label>
+          <div class="pair">
+            <input id="stock" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 1000">
+            <select id="stockUnit" aria-label="Stock dose unit">
+              <option value="mg">mg</option>
+              <option value="g">g</option>
+              <option value="mcg">mcg</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field" id="volumeRow">
+          <label for="volume">Stock volume (the label says it is in how many ml?)</label>
+          <div class="pair single">
+            <input id="volume" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 2">
+            <span class="suffix">ml</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary">Calculate</button>
+          <button type="button" id="clear" class="ghost">Clear</button>
+        </div>
+      </form>
+
+      <div id="result" aria-live="polite"></div>
+    </section>
+
+    <details class="example">
+      <summary>See a worked example</summary>
       <p class="ask">Ordered: 500 mg. Stock: 1000 mg in 2 ml. How much do you give?</p>
       <dl class="steps">
         <div><dt>Formula</dt><dd>Ordered ÷ Stock × Volume</dd></div>
         <div><dt>Substitute</dt><dd>500 ÷ 1000 × 2</dd></div>
         <div><dt>Answer</dt><dd class="answer">1 ml</dd></div>
       </dl>
-    </section>
-
-    <section class="status">
-      <p><strong>The calculator is being built.</strong> Check back soon.</p>
-    </section>
+    </details>
   </main>
 
   <footer>
     <p class="note">For learning only. Always check doses with your tutor and your hospital’s protocol.</p>
     <p class="brand">Powered by FWXplus</p>
   </footer>
+
+  <script src="js/units.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
