@@ -42,6 +42,7 @@
     card.appendChild(el('span', 'give', 'Give'));
     card.appendChild(el('span', 'big', r.answerText));
     container.appendChild(card);
+    container.appendChild(el('p', 'learn-note', 'Learning aid only. Check with your tutor.'));
 
     if (r.warnings.length) {
       var warn = el('div', 'msg warn');
