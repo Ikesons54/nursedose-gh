@@ -1,0 +1,115 @@
+{
+  "category": "tablets",
+  "questions": [
+    {
+      "id": "t01",
+      "drug": "Paracetamol",
+      "form": "tablet",
+      "ordered": 1000,
+      "orderedUnit": "mg",
+      "stock": 500,
+      "stockUnit": "mg",
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "t02",
+      "drug": "Metronidazole",
+      "form": "tablet",
+      "ordered": 400,
+      "orderedUnit": "mg",
+      "stock": 200,
+      "stockUnit": "mg",
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "t03",
+      "drug": "Ciprofloxacin",
+      "form": "tablet",
+      "ordered": 500,
+      "orderedUnit": "mg",
+      "stock": 250,
+      "stockUnit": "mg",
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "t04",
+      "drug": "Prednisolone",
+      "form": "tablet",
+      "ordered": 10,
+      "orderedUnit": "mg",
+      "stock": 5,
+      "stockUnit": "mg",
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "t05",
+      "drug": "Metformin",
+      "form": "tablet",
+      "ordered": 1,
+      "orderedUnit": "g",
+      "stock": 500,
+      "stockUnit": "mg",
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "t06",
+      "drug": "Atenolol",
+      "form": "tablet",
+      "ordered": 50,
+      "orderedUnit": "mg",
+      "stock": 100,
+      "stockUnit": "mg",
+      "expected": 0.5,
+      "status": "draft"
+    },
+    {
+      "id": "t07",
+      "drug": "Folic acid",
+      "form": "tablet",
+      "ordered": 5,
+      "orderedUnit": "mg",
+      "stock": 5,
+      "stockUnit": "mg",
+      "expected": 1,
+      "status": "draft"
+    },
+    {
+      "id": "t08",
+      "drug": "Digoxin",
+      "form": "tablet",
+      "ordered": 250,
+      "orderedUnit": "mcg",
+      "stock": 0.25,
+      "stockUnit": "mg",
+      "expected": 1,
+      "status": "draft"
+    },
+    {
+      "id": "t09",
+      "drug": "Aspirin",
+      "form": "tablet",
+      "ordered": 150,
+      "orderedUnit": "mg",
+      "stock": 75,
+      "stockUnit": "mg",
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "t10",
+      "drug": "Captopril",
+      "form": "tablet",
+      "ordered": 12.5,
+      "orderedUnit": "mg",
+      "stock": 25,
+      "stockUnit": "mg",
+      "expected": 0.5,
+      "status": "draft"
+    }
+  ]
+}
