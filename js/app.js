@@ -76,6 +76,7 @@
     document.getElementById('stock').value = q.stock;
     document.getElementById('stockUnit').value = q.stockUnit;
     document.getElementById('volume').value = q.form === 'liquid' ? q.volume : '';
+    if (window.NurseDose.nav) window.NurseDose.nav.go('calculator');
     document.getElementById('calc-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
