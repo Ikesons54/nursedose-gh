@@ -2,7 +2,7 @@
    Saves the app on the phone so it works without internet.
    Serves the saved copy straight away, then quietly updates it when online.
    To force everyone onto new files, change VERSION. */
-var VERSION = 'nursedose-v1';
+var VERSION = 'nursedose-v2';
 var ASSETS = [
   './',
   'index.html',
