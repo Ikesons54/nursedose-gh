@@ -173,3 +173,26 @@ body { padding-top: 0; }
 .tips, .how { margin: 0; padding-left: 1.2rem; }
 .tips li, .how li { margin-bottom: .5rem; }
 .status-line { margin: 1.25rem 0 .5rem; padding: .75rem 1rem; border-radius: .6rem; background: color-mix(in srgb, var(--green) 10%, var(--paper)); font-weight: 600; }
+
+/* ---------- Day 7: polish and older-phone fallbacks ---------- */
+:root { color-scheme: light dark; }
+.learn-note { margin: .6rem 0 0; font-size: .85rem; color: var(--muted); }
+.install-btn { width: 100%; margin-top: 1rem; }
+
+/* Older iPhones and Androids that do not know color-mix() or inset */
+#scrim { top: 0; right: 0; bottom: 0; left: 0; }
+.seg input { top: 0; left: 0; width: 100%; height: 100%; }
+@supports not (background: color-mix(in srgb, red 50%, blue)) {
+  .seg input:checked + span,
+  .menu-list a[aria-current="page"] { background: rgba(15, 92, 77, .12); }
+  .answer-card { background: rgba(15, 92, 77, .08); }
+  .status-line { background: rgba(15, 92, 77, .1); }
+  .icon-btn:hover { background: rgba(15, 92, 77, .1); }
+  @media (prefers-color-scheme: dark) {
+    .seg input:checked + span,
+    .menu-list a[aria-current="page"] { background: rgba(92, 201, 174, .18); }
+    .answer-card { background: rgba(92, 201, 174, .12); }
+    .status-line { background: rgba(92, 201, 174, .14); }
+    .icon-btn:hover { background: rgba(92, 201, 174, .14); }
+  }
+}
