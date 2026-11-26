@@ -1,0 +1,32 @@
+// Run with:  node tests/questions.test.js
+// Checks every question: required fields, unique ids, and that the calculator
+// gives the hand-checked expected answer.
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const { calculateDose } = require('../js/calculator.js');
+
+const dir = path.join(__dirname, '..', 'data', 'questions');
+const files = ['tablets.json', 'syrups.json', 'injections.json'];
+const ids = new Set();
+let count = 0, failed = 0;
+
+files.forEach(f => {
+  const data = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+  data.questions.forEach(q => {
+    try {
+      assert.ok(q.id && q.drug, 'id and drug required');
+      assert.ok(!ids.has(q.id), 'duplicate id ' + q.id);
+      ids.add(q.id);
+      assert.ok(q.form === 'tablet' || q.form === 'liquid', 'bad form');
+      assert.ok(['draft', 'approved'].includes(q.status), 'bad status');
+      if (q.form === 'liquid') assert.ok(q.volume > 0, 'volume needed');
+      const r = calculateDose(q);
+      assert.strictEqual(r.ok, true, 'calculator rejected ' + q.id);
+      assert.strictEqual(r.answer, q.expected, q.id + ' expected ' + q.expected + ' got ' + r.answer);
+      count++;
+    } catch (e) { failed++; console.log('FAIL  ' + q.id + ': ' + e.message); }
+  });
+});
+console.log(count + ' questions OK, ' + failed + ' failed');
+if (failed) process.exitCode = 1;
