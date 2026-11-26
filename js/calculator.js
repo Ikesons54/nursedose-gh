@@ -19,6 +19,10 @@
     return typeof n === 'number' && isFinite(n) && n > 0;
   }
 
+  function step(title, text, why) {
+    return { title: title, text: text, why: why };
+  }
+
   /*
     input = {
       form: 'liquid' | 'tablet'      (default 'liquid')
@@ -28,6 +32,7 @@
     }
     returns { ok:true, answer, answerText, unit, steps[], warnings[] }
          or { ok:false, errors[] }
+    Each step is { title, text, why }.
   */
   function calculateDose(input) {
     var errors = [];
@@ -55,36 +60,75 @@
     var answer = Number(raw.toFixed(2));
     var warnings = [];
     var steps = [];
+    var isTablet = form === 'tablet';
 
-    var stockText = form === 'tablet'
-      ? fmt(stock) + ' ' + stockUnit + ' per tablet'
-      : fmt(stock) + ' ' + stockUnit + ' in ' + fmt(volume) + ' ml';
+    var stockText = isTablet
+      ? fmt(stock) + ' ' + stockUnit + ' in each tablet'
+      : fmt(stock) + ' ' + stockUnit + ' in every ' + fmt(volume) + ' ml';
 
-    steps.push({ title: 'Read the question', text: 'Ordered: ' + fmt(ordered) + ' ' + orderedUnit + '. Stock: ' + stockText + '.' });
+    steps.push(step(
+      'Read the question',
+      'Ordered: ' + fmt(ordered) + ' ' + orderedUnit + '. Stock: ' + stockText + '.',
+      'Ordered is what the doctor wants the patient to get. Stock is what the label says the medicine contains.'
+    ));
 
     if (conv.converted) {
-      steps.push({
-        title: 'Make the units match',
-        text: fmt(ordered) + ' ' + orderedUnit + ' = ' + fmt(orderedInStock) + ' ' + stockUnit
-      });
+      steps.push(step(
+        'Make the units match',
+        fmt(ordered) + ' ' + orderedUnit + ' = ' + fmt(orderedInStock) + ' ' + stockUnit,
+        'You can only compare like with like. Remember: 1 g = 1000 mg and 1 mg = 1000 mcg. Change the ordered dose to the unit on the label.'
+      ));
     }
 
-    if (form === 'tablet') {
-      steps.push({ title: 'Formula', text: 'Ordered \u00F7 Stock = number of tablets' });
-      steps.push({ title: 'Substitute', text: fmt(orderedInStock) + ' \u00F7 ' + fmt(stock) });
+    if (isTablet) {
+      steps.push(step(
+        'Formula',
+        'Ordered \u00F7 Stock = number of tablets',
+        'This tells you how many tablets hold the dose that was ordered.'
+      ));
+      steps.push(step(
+        'Put in the numbers',
+        fmt(orderedInStock) + ' \u00F7 ' + fmt(stock),
+        'Ordered goes on top, stock goes underneath.'
+      ));
     } else {
-      steps.push({ title: 'Formula', text: 'Ordered \u00F7 Stock \u00D7 Volume' });
-      steps.push({ title: 'Substitute', text: fmt(orderedInStock) + ' \u00F7 ' + fmt(stock) + ' \u00D7 ' + fmt(volume) });
+      steps.push(step(
+        'Formula',
+        'Ordered \u00F7 Stock \u00D7 Volume',
+        'Ordered \u00F7 Stock tells you what fraction of the stock you need. Multiplying by the volume turns that fraction into ml.'
+      ));
+      steps.push(step(
+        'Put in the numbers',
+        fmt(orderedInStock) + ' \u00F7 ' + fmt(stock) + ' \u00D7 ' + fmt(volume),
+        'Ordered goes on top, stock goes underneath, then multiply by the volume the stock comes in.'
+      ));
     }
 
-    var unitLabel = form === 'tablet' ? (answer === 1 ? 'tablet' : 'tablets') : 'ml';
+    var unitLabel = isTablet ? (answer === 1 ? 'tablet' : 'tablets') : 'ml';
     var answerText = fmt(answer) + ' ' + unitLabel;
-    steps.push({ title: 'Answer', text: answerText });
+    steps.push(step('Answer', answerText, 'This is the amount to give.'));
+
+    // Does the answer make sense? Compare the order with one full stock unit.
+    var ratio = orderedInStock / stock;
+    var oneUnit = isTablet ? 'one tablet' : 'the full ' + fmt(volume) + ' ml';
+    var sense;
+    if (Math.abs(ratio - 1) < 1e-9) {
+      sense = 'The order is the same as the stock, so you give ' + oneUnit + '.';
+    } else if (ratio < 1) {
+      sense = 'The order is less than the stock, so you give less than ' + oneUnit + '. ' + answerText + ' fits that.';
+    } else {
+      sense = 'The order is more than the stock, so you give more than ' + oneUnit + '. ' + answerText + ' fits that.';
+    }
+    steps.push(step(
+      'Check it makes sense',
+      sense,
+      'Always ask: is this answer sensible? A quick check can catch a wrong decimal point.'
+    ));
 
     if (Math.abs(raw - answer) > 1e-9) {
       warnings.push('The answer is rounded to 2 decimal places.');
     }
-    if (form === 'tablet' && Math.round(answer * 2) !== answer * 2) {
+    if (isTablet && Math.round(answer * 2) !== answer * 2) {
       warnings.push('Tablets are usually given whole or as a half. Re-check the numbers and ask your tutor.');
     }
     if (answer <= 0) {
