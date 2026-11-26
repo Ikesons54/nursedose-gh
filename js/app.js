@@ -1,4 +1,4 @@
-/* NurseDose GH - calculator screen */
+/* NurseDose GH - calculator screen and shared display helpers */
 (function () {
   var calc = window.NurseDose.calculator;
 
@@ -23,31 +23,32 @@
     return node;
   }
 
-  function showErrors(errors) {
-    resultEl.textContent = '';
-    var box = el('div', 'msg error');
-    box.setAttribute('role', 'alert');
-    box.appendChild(el('strong', null, 'Check your numbers'));
-    var ul = el('ul');
-    errors.forEach(function (e) { ul.appendChild(el('li', null, e)); });
-    box.appendChild(ul);
-    resultEl.appendChild(box);
-  }
+  // Draw a calculator result (answer, warnings, steps) or its errors into any container.
+  function renderResult(container, r) {
+    container.textContent = '';
 
-  function showResult(r) {
-    resultEl.textContent = '';
+    if (!r.ok) {
+      var box = el('div', 'msg error');
+      box.setAttribute('role', 'alert');
+      box.appendChild(el('strong', null, 'Check your numbers'));
+      var eul = el('ul');
+      r.errors.forEach(function (e) { eul.appendChild(el('li', null, e)); });
+      box.appendChild(eul);
+      container.appendChild(box);
+      return;
+    }
 
     var card = el('div', 'answer-card');
     card.appendChild(el('span', 'give', 'Give'));
     card.appendChild(el('span', 'big', r.answerText));
-    resultEl.appendChild(card);
+    container.appendChild(card);
 
     if (r.warnings.length) {
       var warn = el('div', 'msg warn');
-      var ul = el('ul');
-      r.warnings.forEach(function (w) { ul.appendChild(el('li', null, w)); });
-      warn.appendChild(ul);
-      resultEl.appendChild(warn);
+      var wul = el('ul');
+      r.warnings.forEach(function (w) { wul.appendChild(el('li', null, w)); });
+      warn.appendChild(wul);
+      container.appendChild(warn);
     }
 
     var list = el('ol', 'working');
@@ -58,12 +59,24 @@
       if (s.why) li.appendChild(el('span', 'step-why', s.why));
       list.appendChild(li);
     });
-    resultEl.appendChild(el('h3', 'working-head', 'How we got it'));
-    resultEl.appendChild(list);
+    container.appendChild(el('h3', 'working-head', 'How we got it'));
+    container.appendChild(list);
   }
 
   function num(id) {
     return Number(document.getElementById(id).value);
+  }
+
+  // Put a practice question's numbers into the calculator.
+  function fillCalculator(q) {
+    form.elements['form'].value = q.form;
+    updateFormType();
+    document.getElementById('ordered').value = q.ordered;
+    document.getElementById('orderedUnit').value = q.orderedUnit;
+    document.getElementById('stock').value = q.stock;
+    document.getElementById('stockUnit').value = q.stockUnit;
+    document.getElementById('volume').value = q.form === 'liquid' ? q.volume : '';
+    document.getElementById('calc-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   form.addEventListener('submit', function (e) {
@@ -76,7 +89,7 @@
       stockUnit: document.getElementById('stockUnit').value,
       volume: num('volume')
     });
-    if (r.ok) showResult(r); else showErrors(r.errors);
+    renderResult(resultEl, r);
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 
@@ -89,6 +102,8 @@
     updateFormType();
     document.getElementById('ordered').focus();
   });
+
+  window.NurseDose.ui = { el: el, renderResult: renderResult, fillCalculator: fillCalculator };
 
   updateFormType();
 })();
