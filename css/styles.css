@@ -56,3 +56,60 @@ h1 { font-size: 2rem; line-height: 1.15; margin: 1.5rem 0 .75rem; letter-spacing
 footer { padding-top: 2rem; padding-bottom: 2rem; }
 .note { font-size: .85rem; color: var(--muted); margin: 0 0 .75rem; }
 .brand { font-size: .85rem; font-weight: 600; margin: 0; }
+
+/* ---------- Day 3: calculator screen ---------- */
+:root { --card: #FFFFFF; --error: #B3261E; --warn-bg: #FFF4D6; }
+@media (prefers-color-scheme: dark) {
+  :root { --card: #10292A; --error: #FF8A80; --warn-bg: #3A2E0E; }
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[hidden] { display: none !important; }
+
+.calc { margin-top: 1.75rem; padding: 1.25rem; background: var(--card); border: 1px solid var(--line); border-radius: .9rem; }
+.calc h2 { font-size: 1.1rem; margin: 0 0 1rem; color: var(--green); }
+
+.seg { border: 0; padding: 0; margin: 0 0 1.25rem; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; }
+.seg span { display: block; text-align: center; padding: .75rem .5rem; min-height: 3rem; border: 2px solid var(--line); border-radius: .6rem; font-weight: 600; font-size: .95rem; cursor: pointer; }
+.seg input:checked + span { border-color: var(--green); background: color-mix(in srgb, var(--green) 12%, var(--card)); color: var(--green); }
+.seg input:focus-visible + span { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.field { margin-bottom: 1.1rem; }
+.field > label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: .4rem; }
+.pair { display: grid; grid-template-columns: 1fr 5.5rem; gap: .5rem; }
+.pair.single { grid-template-columns: 1fr 3rem; align-items: center; }
+.suffix { color: var(--muted); font-weight: 600; }
+input[type="number"], select {
+  width: 100%; min-height: 3rem; padding: .5rem .75rem;
+  font: inherit; font-size: 1.1rem; color: var(--ink);
+  background: var(--paper); border: 2px solid var(--line); border-radius: .6rem;
+}
+input[type="number"]:focus, select:focus { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--green); }
+
+.actions { display: grid; grid-template-columns: 2fr 1fr; gap: .5rem; margin-top: 1.5rem; }
+button { font: inherit; font-weight: 700; min-height: 3.1rem; border-radius: .6rem; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.primary { background: var(--green); color: #fff; border: 2px solid var(--green); }
+.ghost { background: transparent; color: var(--ink); border: 2px solid var(--line); }
+@media (prefers-color-scheme: dark) { .primary { color: #0B1F1B; } }
+
+#result { margin-top: 1.25rem; }
+#result:empty { margin-top: 0; }
+.answer-card { display: flex; flex-direction: column; align-items: flex-start; padding: 1rem 1.25rem; border-left: .4rem solid var(--gold); background: color-mix(in srgb, var(--green) 8%, var(--card)); border-radius: 0 .75rem .75rem 0; }
+.answer-card .give { color: var(--muted); font-size: .9rem; }
+.answer-card .big { font-size: 2.2rem; font-weight: 800; color: var(--green); line-height: 1.2; }
+.msg { margin-top: .9rem; padding: .75rem 1rem; border-radius: .6rem; font-size: .92rem; }
+.msg ul { margin: .25rem 0 0; padding-left: 1.1rem; }
+.msg.error { border: 2px solid var(--error); color: var(--error); }
+.msg.warn { background: var(--warn-bg); border-left: .4rem solid var(--gold); }
+.working-head { font-size: .95rem; margin: 1.25rem 0 .4rem; color: var(--muted); }
+.working { margin: 0; padding: 0; list-style: none; counter-reset: s; }
+.working li { counter-increment: s; display: grid; grid-template-columns: 1.6rem 1fr; gap: 0 .5rem; padding: .6rem 0; border-top: 1px solid var(--line); }
+.working li::before { content: counter(s); grid-row: span 2; color: var(--green); font-weight: 800; }
+.step-title { font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.step-text { font-weight: 600; }
+
+details.example { margin-top: 1.5rem; padding: 1rem 1.25rem; border: 1px solid var(--line); border-radius: .75rem; }
+details.example summary { cursor: pointer; font-weight: 700; color: var(--green); min-height: 2rem; }
+details.example .ask { margin: .75rem 0; }
