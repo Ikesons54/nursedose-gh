@@ -117,3 +117,20 @@ details.example .ask { margin: .75rem 0; }
 /* ---------- Day 4: tutor steps ---------- */
 .step-why { grid-column: 2; font-size: .88rem; color: var(--muted); margin-top: .15rem; }
 .working li:last-child .step-text { color: var(--green); }
+
+/* ---------- Day 5: practice questions ---------- */
+.bank { margin-top: 1.75rem; }
+.bank h2 { font-size: 1.1rem; margin: 0 0 .25rem; color: var(--green); }
+.muted { color: var(--muted); font-size: .9rem; margin: 0 0 .75rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.chip { min-height: 2.75rem; padding: 0 1rem; background: var(--card); color: var(--ink); border: 2px solid var(--line); font-weight: 600; font-size: .9rem; }
+.chip[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
+@media (prefers-color-scheme: dark) { .chip[aria-pressed="true"] { color: #0B1F1B; } }
+details.q { background: var(--card); border: 1px solid var(--line); border-radius: .75rem; margin-bottom: .6rem; padding: 0 1rem; }
+details.q summary { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; min-height: 3.25rem; font-weight: 700; }
+.q-tag { font-size: .75rem; font-weight: 700; padding: .1rem .5rem; border-radius: 1rem; background: var(--gold); color: #14231F; }
+.q-text { margin: .25rem 0 .5rem; }
+.q-draft { margin: 0 0 .75rem; font-size: .8rem; color: var(--muted); }
+.q-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding-bottom: 1rem; }
+.q-actions button { min-height: 2.75rem; font-size: .9rem; }
+.q-solution { padding-bottom: 1rem; }
