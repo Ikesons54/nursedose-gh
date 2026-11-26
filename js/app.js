@@ -55,6 +55,7 @@
       var li = el('li');
       li.appendChild(el('span', 'step-title', s.title));
       li.appendChild(el('span', 'step-text', s.text));
+      if (s.why) li.appendChild(el('span', 'step-why', s.why));
       list.appendChild(li);
     });
     resultEl.appendChild(el('h3', 'working-head', 'How we got it'));
