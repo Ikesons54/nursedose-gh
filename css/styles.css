@@ -134,3 +134,42 @@ details.q summary { cursor: pointer; display: flex; flex-wrap: wrap; align-items
 .q-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding-bottom: 1rem; }
 .q-actions button { min-height: 2.75rem; font-size: .9rem; }
 .q-solution { padding-bottom: 1rem; }
+
+/* ---------- Day 6: side menu, screens, install ---------- */
+body { padding-top: 0; }
+.bar { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top); }
+.top { padding-top: .5rem; padding-bottom: .5rem; }
+.icon-btn { display: inline-grid; place-items: center; width: 2.9rem; min-height: 2.9rem; padding: 0; background: transparent; color: var(--ink); border: 0; border-radius: .6rem; margin-left: -.6rem; }
+.icon-btn:hover { background: color-mix(in srgb, var(--green) 10%, transparent); }
+
+#scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, .5); z-index: 20; }
+.drawer { position: fixed; top: 0; bottom: 0; left: 0; width: min(82vw, 19rem); z-index: 30; display: flex; flex-direction: column; background: var(--card); border-right: 1px solid var(--line); padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); overflow-y: auto; transform: translateX(-100%); visibility: hidden; transition: transform .22s ease, visibility 0s linear .22s; }
+.drawer.open { transform: none; visibility: visible; transition: transform .22s ease; }
+@media (prefers-reduced-motion: reduce) { .drawer, .drawer.open { transition: none; } }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: .5rem .75rem .5rem 1.25rem; border-bottom: 1px solid var(--line); }
+.drawer-head .icon-btn { margin-left: 0; }
+.drawer-title { font-weight: 800; color: var(--green); }
+.menu-list, .menu-list ul { list-style: none; margin: 0; padding: 0; }
+.menu-list { padding: .5rem 0; }
+.menu-list a { display: flex; align-items: center; gap: .5rem; min-height: 3rem; padding: 0 1.25rem; color: var(--ink); text-decoration: none; font-weight: 600; border-left: .3rem solid transparent; }
+.menu-list a:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
+.menu-list a[aria-current="page"] { background: color-mix(in srgb, var(--green) 12%, var(--card)); color: var(--green); border-left-color: var(--gold); }
+.menu-list .sub a { padding-left: 2.5rem; min-height: 2.6rem; font-weight: 500; font-size: .95rem; }
+.new { font-size: .7rem; font-weight: 800; padding: .05rem .45rem; border-radius: 1rem; background: var(--gold); color: #14231F; }
+
+.view-title { font-size: 1.6rem; line-height: 1.2; margin: 1.5rem 0 .5rem; color: var(--green); }
+.view-title:focus, .intro h1:focus { outline: none; }
+.shortcut { display: flex; flex-direction: column; gap: .15rem; margin-top: 1.25rem; padding: 1rem 1.25rem; text-decoration: none; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-left: .4rem solid var(--gold); border-radius: 0 .75rem .75rem 0; }
+.shortcut span { color: var(--muted); font-size: .9rem; }
+.shortcut:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.ref-card { margin-top: 1rem; padding: 1.1rem 1.25rem; background: var(--card); border: 1px solid var(--line); border-radius: .75rem; }
+.ref-card h2 { font-size: 1rem; margin: 0 0 .6rem; color: var(--green); }
+.ref-card p { margin: 0 0 .6rem; }
+.ref-card p:last-child { margin-bottom: 0; }
+.ref-card.safety { border-left: .4rem solid var(--gold); }
+.conv { border-collapse: collapse; margin-bottom: .5rem; }
+.conv th, .conv td { text-align: left; padding: .35rem 1rem .35rem 0; font-weight: 600; }
+.tips, .how { margin: 0; padding-left: 1.2rem; }
+.tips li, .how li { margin-bottom: .5rem; }
+.status-line { margin: 1.25rem 0 .5rem; padding: .75rem 1rem; border-radius: .6rem; background: color-mix(in srgb, var(--green) 10%, var(--paper)); font-weight: 600; }
