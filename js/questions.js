@@ -111,5 +111,11 @@
     });
   }
 
+  function setFilter(key) {
+    active = key;
+    if (all.length) { renderChips(); renderList(); }
+  }
+  window.NurseDose.questions = { setFilter: setFilter };
+
   load();
 })();
