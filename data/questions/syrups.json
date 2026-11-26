@@ -1,0 +1,125 @@
+{
+  "category": "syrups",
+  "questions": [
+    {
+      "id": "s01",
+      "drug": "Amoxicillin suspension",
+      "form": "liquid",
+      "ordered": 250,
+      "orderedUnit": "mg",
+      "stock": 125,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 10,
+      "status": "draft"
+    },
+    {
+      "id": "s02",
+      "drug": "Paracetamol syrup",
+      "form": "liquid",
+      "ordered": 180,
+      "orderedUnit": "mg",
+      "stock": 120,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 7.5,
+      "status": "draft"
+    },
+    {
+      "id": "s03",
+      "drug": "Metronidazole suspension",
+      "form": "liquid",
+      "ordered": 100,
+      "orderedUnit": "mg",
+      "stock": 200,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 2.5,
+      "status": "draft"
+    },
+    {
+      "id": "s04",
+      "drug": "Erythromycin suspension",
+      "form": "liquid",
+      "ordered": 200,
+      "orderedUnit": "mg",
+      "stock": 125,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 8,
+      "status": "draft"
+    },
+    {
+      "id": "s05",
+      "drug": "Salbutamol syrup",
+      "form": "liquid",
+      "ordered": 1.5,
+      "orderedUnit": "mg",
+      "stock": 2,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 3.75,
+      "status": "draft"
+    },
+    {
+      "id": "s06",
+      "drug": "Ibuprofen syrup",
+      "form": "liquid",
+      "ordered": 0.2,
+      "orderedUnit": "g",
+      "stock": 100,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 10,
+      "status": "draft"
+    },
+    {
+      "id": "s07",
+      "drug": "Cetirizine syrup",
+      "form": "liquid",
+      "ordered": 2.5,
+      "orderedUnit": "mg",
+      "stock": 5,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 2.5,
+      "status": "draft"
+    },
+    {
+      "id": "s08",
+      "drug": "Prednisolone syrup",
+      "form": "liquid",
+      "ordered": 10,
+      "orderedUnit": "mg",
+      "stock": 15,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 3.33,
+      "status": "draft"
+    },
+    {
+      "id": "s09",
+      "drug": "Cefalexin suspension",
+      "form": "liquid",
+      "ordered": 300,
+      "orderedUnit": "mg",
+      "stock": 125,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 12,
+      "status": "draft"
+    },
+    {
+      "id": "s10",
+      "drug": "Carbocisteine syrup",
+      "form": "liquid",
+      "ordered": 750,
+      "orderedUnit": "mg",
+      "stock": 250,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 15,
+      "status": "draft"
+    }
+  ]
+}
