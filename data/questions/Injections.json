@@ -1,0 +1,125 @@
+{
+  "category": "injections",
+  "questions": [
+    {
+      "id": "i01",
+      "drug": "Gentamicin injection",
+      "form": "liquid",
+      "ordered": 60,
+      "orderedUnit": "mg",
+      "stock": 80,
+      "stockUnit": "mg",
+      "volume": 2,
+      "expected": 1.5,
+      "status": "draft"
+    },
+    {
+      "id": "i02",
+      "drug": "Ceftriaxone injection",
+      "form": "liquid",
+      "ordered": 500,
+      "orderedUnit": "mg",
+      "stock": 1,
+      "stockUnit": "g",
+      "volume": 10,
+      "expected": 5,
+      "status": "draft"
+    },
+    {
+      "id": "i03",
+      "drug": "Diclofenac injection",
+      "form": "liquid",
+      "ordered": 50,
+      "orderedUnit": "mg",
+      "stock": 75,
+      "stockUnit": "mg",
+      "volume": 3,
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "i04",
+      "drug": "Furosemide injection",
+      "form": "liquid",
+      "ordered": 40,
+      "orderedUnit": "mg",
+      "stock": 20,
+      "stockUnit": "mg",
+      "volume": 2,
+      "expected": 4,
+      "status": "draft"
+    },
+    {
+      "id": "i05",
+      "drug": "Hyoscine butylbromide injection",
+      "form": "liquid",
+      "ordered": 10,
+      "orderedUnit": "mg",
+      "stock": 20,
+      "stockUnit": "mg",
+      "volume": 1,
+      "expected": 0.5,
+      "status": "draft"
+    },
+    {
+      "id": "i06",
+      "drug": "Metoclopramide injection",
+      "form": "liquid",
+      "ordered": 5,
+      "orderedUnit": "mg",
+      "stock": 10,
+      "stockUnit": "mg",
+      "volume": 2,
+      "expected": 1,
+      "status": "draft"
+    },
+    {
+      "id": "i07",
+      "drug": "Morphine injection",
+      "form": "liquid",
+      "ordered": 7.5,
+      "orderedUnit": "mg",
+      "stock": 10,
+      "stockUnit": "mg",
+      "volume": 1,
+      "expected": 0.75,
+      "status": "draft"
+    },
+    {
+      "id": "i08",
+      "drug": "Adrenaline injection",
+      "form": "liquid",
+      "ordered": 500,
+      "orderedUnit": "mcg",
+      "stock": 1,
+      "stockUnit": "mg",
+      "volume": 1,
+      "expected": 0.5,
+      "status": "draft"
+    },
+    {
+      "id": "i09",
+      "drug": "Dexamethasone injection",
+      "form": "liquid",
+      "ordered": 8,
+      "orderedUnit": "mg",
+      "stock": 4,
+      "stockUnit": "mg",
+      "volume": 1,
+      "expected": 2,
+      "status": "draft"
+    },
+    {
+      "id": "i10",
+      "drug": "Ampicillin injection",
+      "form": "liquid",
+      "ordered": 1,
+      "orderedUnit": "g",
+      "stock": 500,
+      "stockUnit": "mg",
+      "volume": 5,
+      "expected": 10,
+      "status": "draft"
+    }
+  ]
+}
