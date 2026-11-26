@@ -5,92 +5,199 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>NurseDose GH</title>
   <meta name="description" content="Step-by-step drug dose calculations for nursing students in Ghana. Works offline.">
-  <meta name="theme-color" content="#0F5C4D">
+  <meta name="theme-color" content="#0F5C4D" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B1F1B" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NurseDose">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="top">
-    <span class="mark" aria-hidden="true">Rx</span>
-    <span class="name">NurseDose GH</span>
+  <header class="bar">
+    <div class="top">
+      <button id="menuBtn" class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <span class="mark" aria-hidden="true">Rx</span>
+      <span class="name">NurseDose GH</span>
+    </div>
   </header>
 
+  <div id="scrim" hidden></div>
+  <nav id="drawer" class="drawer" aria-label="Main menu" inert>
+    <div class="drawer-head">
+      <span class="drawer-title">Menu</span>
+      <button id="closeBtn" class="icon-btn" type="button" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <ul id="menu-list" class="menu-list"></ul>
+  </nav>
+
   <main>
-    <section class="intro">
-      <h1>Understand drug calculations. Don’t cram them.</h1>
-      <p>Step-by-step dose calculations for Ghana nursing students. Works without internet.</p>
+    <!-- Calculator (home) -->
+    <section id="view-calculator" data-view="calculator">
+      <section class="intro">
+        <h1 tabindex="-1">Understand drug calculations. Don’t cram them.</h1>
+        <p>Step-by-step dose calculations for Ghana nursing students. Works without internet.</p>
+      </section>
+
+      <section class="calc" aria-labelledby="calc-title">
+        <h2 id="calc-title">Dose calculator</h2>
+
+        <form id="calc-form" novalidate>
+          <fieldset class="seg">
+            <legend class="sr">Medicine form</legend>
+            <label><input type="radio" name="form" value="liquid" checked><span>Liquid / injection</span></label>
+            <label><input type="radio" name="form" value="tablet"><span>Tablet</span></label>
+          </fieldset>
+
+          <div class="field">
+            <label for="ordered">Ordered dose (what the doctor wrote)</label>
+            <div class="pair">
+              <input id="ordered" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 500">
+              <select id="orderedUnit" aria-label="Ordered dose unit">
+                <option value="mg">mg</option>
+                <option value="g">g</option>
+                <option value="mcg">mcg</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="stock">Stock dose (what is on the label)</label>
+            <div class="pair">
+              <input id="stock" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 1000">
+              <select id="stockUnit" aria-label="Stock dose unit">
+                <option value="mg">mg</option>
+                <option value="g">g</option>
+                <option value="mcg">mcg</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" id="volumeRow">
+            <label for="volume">Stock volume (the label says it is in how many ml?)</label>
+            <div class="pair single">
+              <input id="volume" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 2">
+              <span class="suffix">ml</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="primary">Calculate</button>
+            <button type="button" id="clear" class="ghost">Clear</button>
+          </div>
+        </form>
+
+        <div id="result" aria-live="polite"></div>
+      </section>
+
+      <a class="shortcut" href="#practice">
+        <strong>Practice questions</strong>
+        <span>30 questions with worked answers</span>
+      </a>
     </section>
 
-    <section class="calc" aria-labelledby="calc-title">
-      <h2 id="calc-title">Dose calculator</h2>
-
-      <form id="calc-form" novalidate>
-        <fieldset class="seg">
-          <legend class="sr">Medicine form</legend>
-          <label><input type="radio" name="form" value="liquid" checked><span>Liquid / injection</span></label>
-          <label><input type="radio" name="form" value="tablet"><span>Tablet</span></label>
-        </fieldset>
-
-        <div class="field">
-          <label for="ordered">Ordered dose (what the doctor wrote)</label>
-          <div class="pair">
-            <input id="ordered" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 500">
-            <select id="orderedUnit" aria-label="Ordered dose unit">
-              <option value="mg">mg</option>
-              <option value="g">g</option>
-              <option value="mcg">mcg</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="stock">Stock dose (what is on the label)</label>
-          <div class="pair">
-            <input id="stock" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 1000">
-            <select id="stockUnit" aria-label="Stock dose unit">
-              <option value="mg">mg</option>
-              <option value="g">g</option>
-              <option value="mcg">mcg</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field" id="volumeRow">
-          <label for="volume">Stock volume (the label says it is in how many ml?)</label>
-          <div class="pair single">
-            <input id="volume" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 2">
-            <span class="suffix">ml</span>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="primary">Calculate</button>
-          <button type="button" id="clear" class="ghost">Clear</button>
-        </div>
-      </form>
-
-      <div id="result" aria-live="polite"></div>
-    </section>
-
-    <section class="bank" aria-labelledby="bank-title">
-      <h2 id="bank-title">Practice questions</h2>
+    <!-- Practice questions -->
+    <section id="view-practice" data-view="practice" hidden>
+      <h1 class="view-title" tabindex="-1">Practice questions</h1>
       <p class="muted">Try each one on paper first, then check your working.</p>
       <div id="chips" class="chips"></div>
       <div id="qlist"></div>
       <p id="qstatus" class="muted" aria-live="polite"></p>
     </section>
 
-    <details class="example">
-      <summary>See a worked example</summary>
-      <p class="ask">Ordered: 500 mg. Stock: 1000 mg in 2 ml. How much do you give?</p>
-      <dl class="steps">
-        <div><dt>Formula</dt><dd>Ordered ÷ Stock × Volume</dd></div>
-        <div><dt>Substitute</dt><dd>500 ÷ 1000 × 2</dd></div>
-        <div><dt>Answer</dt><dd class="answer">1 ml</dd></div>
-      </dl>
-    </details>
+    <!-- Quick reference -->
+    <section id="view-reference" data-view="reference" hidden>
+      <h1 class="view-title" tabindex="-1">Quick reference</h1>
+
+      <div class="ref-card">
+        <h2>The formulas</h2>
+        <dl class="steps">
+          <div><dt>Liquids and injections</dt><dd>Ordered ÷ Stock × Volume</dd></div>
+          <div><dt>Tablets</dt><dd>Ordered ÷ Stock</dd></div>
+        </dl>
+      </div>
+
+      <div class="ref-card">
+        <h2>Unit conversions</h2>
+        <table class="conv">
+          <tbody>
+            <tr><th scope="row">1 g</th><td>= 1000 mg</td></tr>
+            <tr><th scope="row">1 mg</th><td>= 1000 mcg</td></tr>
+          </tbody>
+        </table>
+        <p class="muted">Always make the units match before you divide.</p>
+      </div>
+
+      <div class="ref-card">
+        <h2>A worked example</h2>
+        <p class="ask">Ordered: 500 mg. Stock: 1000 mg in 2 ml. How much do you give?</p>
+        <dl class="steps">
+          <div><dt>Formula</dt><dd>Ordered ÷ Stock × Volume</dd></div>
+          <div><dt>Put in the numbers</dt><dd>500 ÷ 1000 × 2</dd></div>
+          <div><dt>Answer</dt><dd class="answer">1 ml</dd></div>
+        </dl>
+      </div>
+
+      <div class="ref-card">
+        <h2>Before you give</h2>
+        <ul class="tips">
+          <li>Ask: does the answer make sense next to one full tablet or the full stock volume?</li>
+          <li>Tablets are usually given whole or as a half.</li>
+          <li>Check every dose with your tutor and your hospital’s protocol.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Install the app -->
+    <section id="view-install" data-view="install" hidden>
+      <h1 class="view-title" tabindex="-1">Install the app</h1>
+      <p class="muted">Add NurseDose GH to your home screen so it opens like a normal app.</p>
+
+      <div class="ref-card">
+        <h2>iPhone (Safari)</h2>
+        <ol class="how">
+          <li>Open this page in <strong>Safari</strong>.</li>
+          <li>Tap the <strong>Share</strong> button.</li>
+          <li>Tap <strong>Add to Home Screen</strong>, then <strong>Add</strong>.</li>
+        </ol>
+      </div>
+
+      <div class="ref-card">
+        <h2>Android (Chrome)</h2>
+        <ol class="how">
+          <li>Open this page in <strong>Chrome</strong>.</li>
+          <li>Tap the <strong>⋮</strong> menu.</li>
+          <li>Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+        </ol>
+      </div>
+
+      <button id="installBtn" class="primary install-btn" type="button" hidden>Install NurseDose now</button>
+      <p class="status-line" id="standalone-note" hidden>You are using the installed app.</p>
+      <p class="status-line" id="offline-status">Checking offline support…</p>
+      <p class="muted">Open the app once with internet so it can save itself for offline use.</p>
+    </section>
+
+    <!-- About and safety -->
+    <section id="view-about" data-view="about" hidden>
+      <h1 class="view-title" tabindex="-1">About and safety</h1>
+      <div class="ref-card">
+        <h2>NurseDose GH</h2>
+        <p>Helps Ghana nursing students learn drug dose calculations, step by step. It works without internet once installed.</p>
+      </div>
+      <div class="ref-card safety">
+        <h2>For learning only</h2>
+        <p>This app is a study aid. Always check doses with your tutor and your hospital’s protocol before giving any medicine.</p>
+        <p>Practice questions marked <strong>Draft</strong> are still waiting for tutor review.</p>
+      </div>
+      <p class="brand">Powered by FWXplus</p>
+      <p class="muted">Version 0.7 (MVP in progress)</p>
+    </section>
   </main>
 
   <footer>
@@ -102,5 +209,7 @@
   <script src="js/calculator.js"></script>
   <script src="js/app.js"></script>
   <script src="js/questions.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/pwa.js"></script>
 </body>
 </html>
