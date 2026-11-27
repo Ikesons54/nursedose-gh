@@ -95,7 +95,7 @@
 
   function load() {
     statusEl.textContent = 'Loading questions...';
-    Promise.all(FILES.map(function (name) {
+    return Promise.all(FILES.map(function (name) {
       return fetch('data/questions/' + name + '.json').then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
@@ -115,7 +115,10 @@
     active = key;
     if (all.length) { renderChips(); renderList(); }
   }
-  window.NurseDose.questions = { setFilter: setFilter };
-
-  load();
+  var loaded = load();
+  window.NurseDose.questions = {
+    setFilter: setFilter,
+    getAll: function () { return all.slice(); },
+    whenLoaded: loaded
+  };
 })();
