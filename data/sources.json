@@ -1,0 +1,41 @@
+{
+  "checked": "27 November 2026",
+  "sources": [
+    {
+      "id": "stg-2017",
+      "title": "Standard Treatment Guidelines",
+      "publisher": "Ministry of Health, Ghana National Drugs Programme (GNDP)",
+      "edition": "7th edition, 2017",
+      "url": "https://moh.gov.gh/manuals-guidelines/",
+      "note": "Listed on the Ministry of Health website under Manuals and Guidelines.",
+      "usedInApp": false
+    },
+    {
+      "id": "eml-2017",
+      "title": "Ghana Essential Medicines List",
+      "publisher": "Ministry of Health, Ghana",
+      "edition": "2017",
+      "url": "https://moh.gov.gh/manuals-guidelines/",
+      "note": "Listed on the Ministry of Health website under Manuals and Guidelines.",
+      "usedInApp": false
+    },
+    {
+      "id": "fda-registry",
+      "title": "Product registry",
+      "publisher": "Food and Drugs Authority (FDA), Ghana",
+      "edition": "Live website",
+      "url": "https://fdaghana.gov.gh/programmes/product-registry/",
+      "note": "The FDA's product registry page.",
+      "usedInApp": false
+    },
+    {
+      "id": "fda-recalls",
+      "title": "Product recalls",
+      "publisher": "Food and Drugs Authority (FDA), Ghana",
+      "edition": "Live website",
+      "url": "https://fdaghana.gov.gh/recall-products.php",
+      "note": "Recalled products announced by the FDA.",
+      "usedInApp": false
+    }
+  ]
+}
