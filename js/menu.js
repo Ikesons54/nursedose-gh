@@ -9,6 +9,7 @@
     { id: 'calculator', label: 'Calculator', view: 'calculator' },
     { id: 'iv', label: 'IV fluids', view: 'iv' },
     { id: 'practice-mode', label: 'Practice mode', view: 'practice-mode', modes: ['student'] },
+    { id: 'exam', label: 'Exam mode', view: 'exam', modes: ['student'], highlight: true },
     { id: 'practice', label: 'Question bank', view: 'practice', filter: 'all', modes: ['student'], children: [
       { id: 'practice-tablets', label: 'Tablets', view: 'practice', filter: 'tablets' },
       { id: 'practice-syrups', label: 'Syrups', view: 'practice', filter: 'syrups' },
@@ -16,12 +17,11 @@
     ] },
     { id: 'formulas', label: 'Formula library', view: 'formulas' },
     { id: 'reference', label: 'Quick reference', view: 'reference' },
-    { id: 'sources', label: 'Sources', view: 'sources', highlight: true },
+    { id: 'sources', label: 'Sources', view: 'sources' },
     { id: 'install', label: 'Install the app', view: 'install' },
     { id: 'about', label: 'About and safety', view: 'about' }
 
     // Later (switched off until built):
-    // { id: 'exam', label: 'Exam mode', view: 'exam', enabled: false, modes: ['student'] },
     // { id: 'progress', label: 'My progress', view: 'progress', enabled: false },
     // { id: 'pharmacy', label: 'Pharmacy tools', view: 'pharmacy', enabled: false, highlight: true }
   ];
@@ -125,6 +125,7 @@
 
     if (item.filter && window.NurseDose.questions) window.NurseDose.questions.setFilter(item.filter);
     if (item.view === 'practice-mode' && window.NurseDose.practice) window.NurseDose.practice.onShow();
+    if (item.view === 'exam' && window.NurseDose.exam) window.NurseDose.exam.onShow();
 
     window.scrollTo(0, 0);
     var view = document.querySelector('[data-view="' + item.view + '"]');
