@@ -2,20 +2,29 @@
    Saves the app on the phone so it works without internet.
    Serves the saved copy straight away, then quietly updates it when online.
    To force everyone onto new files, change VERSION. */
-var VERSION = 'nursedose-v3';
+var VERSION = 'nursedose-v6';
 var ASSETS = [
   './',
   'index.html',
   'manifest.json',
   'css/styles.css',
+  'js/mode.js',
   'js/units.js',
   'js/calculator.js',
+  'js/iv.js',
   'js/grader.js',
   'js/app.js',
+  'js/mascot.js',
   'js/questions.js',
   'js/practice.js',
+  'js/formulas.js',
+  'js/ivscreen.js',
+  'js/sources.js',
   'js/menu.js',
+  'js/intro.js',
   'js/pwa.js',
+  'data/formulas.json',
+  'data/sources.json',
   'data/questions/tablets.json',
   'data/questions/syrups.json',
   'data/questions/injections.json',
