@@ -96,15 +96,29 @@
         <div id="result" aria-live="polite"></div>
       </section>
 
-      <a class="shortcut" href="#practice">
-        <strong>Practice questions</strong>
-        <span>30 questions with worked answers</span>
-      </a>
+      <div class="shortcuts">
+        <a class="shortcut" href="#practice-mode">
+          <strong>Practice mode <span class="new">New</span></strong>
+          <span>Answer questions and get instant feedback</span>
+        </a>
+        <a class="shortcut" href="#practice">
+          <strong>Question bank</strong>
+          <span>30 questions with worked answers</span>
+        </a>
+      </div>
     </section>
 
-    <!-- Practice questions -->
+    <!-- Practice mode -->
+    <section id="view-practice-mode" data-view="practice-mode" hidden>
+      <h1 class="view-title" tabindex="-1">Practice mode</h1>
+      <div id="pm-setup"></div>
+      <div id="pm-quiz" hidden></div>
+      <div id="pm-results" hidden></div>
+    </section>
+
+    <!-- Question bank -->
     <section id="view-practice" data-view="practice" hidden>
-      <h1 class="view-title" tabindex="-1">Practice questions</h1>
+      <h1 class="view-title" tabindex="-1">Question bank</h1>
       <p class="muted">Try each one on paper first, then check your working.</p>
       <div id="chips" class="chips"></div>
       <div id="qlist"></div>
@@ -196,7 +210,7 @@
         <p>Practice questions marked <strong>Draft</strong> are still waiting for tutor review.</p>
       </div>
       <p class="brand">Powered by FWXplus</p>
-      <p class="muted">Version 0.7 (MVP in progress)</p>
+      <p class="muted">Version 0.8 (Practice mode added)</p>
     </section>
   </main>
 
@@ -207,8 +221,10 @@
 
   <script src="js/units.js"></script>
   <script src="js/calculator.js"></script>
+  <script src="js/grader.js"></script>
   <script src="js/app.js"></script>
   <script src="js/questions.js"></script>
+  <script src="js/practice.js"></script>
   <script src="js/menu.js"></script>
   <script src="js/pwa.js"></script>
 </body>
