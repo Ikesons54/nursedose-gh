@@ -196,3 +196,45 @@ body { padding-top: 0; }
     .icon-btn:hover { background: rgba(92, 201, 174, .14); }
   }
 }
+
+/* ---------- Release 2.0: Practice mode ---------- */
+.shortcuts { display: grid; gap: .75rem; margin-top: 1.25rem; }
+.shortcuts .shortcut { margin-top: 0; }
+.pm-label { font-size: 1rem; margin: 1.25rem 0 .6rem; color: var(--green); }
+.pm-note { margin-top: 1rem; }
+.pm-top { display: flex; justify-content: space-between; margin-top: .75rem; font-weight: 700; }
+.pm-score { color: var(--green); }
+.pm-bar { height: .5rem; margin: .5rem 0 1rem; background: var(--line); border-radius: 1rem; overflow: hidden; }
+.pm-fill { height: 100%; background: var(--green); transition: width .25s ease; }
+.pm-card { padding: 1.1rem 1.25rem 1.25rem; background: var(--card); border: 1px solid var(--line); border-radius: .75rem; }
+.pm-card .q-drug { font-size: 1.15rem; margin: 0 0 .4rem; }
+.pm-card .q-text { font-size: 1.05rem; }
+.pm-form > label { display: block; font-weight: 600; font-size: .9rem; margin: .75rem 0 .4rem; }
+.pm-pair { grid-template-columns: 1fr auto; gap: .75rem; }
+.pm-pair input[type="text"] { width: 100%; min-height: 3rem; padding: .5rem .75rem; font: inherit; font-size: 1.2rem; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: .6rem; }
+.pm-pair input[type="text"]:focus { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--green); }
+.pm-check, .pm-next { width: 100%; margin-top: 1rem; }
+.pm-check:disabled, .install-btn:disabled { opacity: .5; cursor: default; }
+.pm-feedback:empty { display: none; }
+.pm-feedback { margin-top: 1rem; }
+.pm-fb { padding: .8rem 1rem; border-radius: .6rem; border: 2px solid var(--line); }
+.pm-fb:focus { outline: none; }
+.pm-fb strong { display: block; font-size: 1.05rem; }
+.pm-fb p { margin: .25rem 0 0; }
+.pm-fb.correct { border-color: var(--green); }
+.pm-fb.correct strong { color: var(--green); }
+.pm-fb.close { border-color: var(--gold); background: var(--warn-bg); }
+.pm-fb.wrong { border-color: var(--error); }
+.pm-fb.wrong strong { color: var(--error); }
+.pm-right { font-weight: 700; }
+.pm-steps { margin-top: .9rem; }
+.pm-steps summary { cursor: pointer; font-weight: 700; color: var(--green); min-height: 2.75rem; display: flex; align-items: center; }
+.pm-stop { width: 100%; margin-top: 1rem; }
+.pm-result { display: flex; flex-direction: column; align-items: flex-start; margin-top: 1rem; padding: 1.1rem 1.25rem; border-left: .4rem solid var(--gold); background: var(--card); border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0 .75rem .75rem 0; }
+.pm-result .give { color: var(--muted); font-size: .9rem; }
+.pm-result .big { font-size: 2.4rem; font-weight: 800; color: var(--green); line-height: 1.2; }
+.pm-msg { margin-top: .25rem; }
+.pm-missed { list-style: none; margin: 0; padding: 0; }
+.pm-missed li { display: flex; flex-direction: column; padding: .6rem 0; border-top: 1px solid var(--line); }
+.pm-missed li span { color: var(--muted); font-size: .92rem; }
+.pm-actions { display: grid; gap: .6rem; margin-top: 1.25rem; }
