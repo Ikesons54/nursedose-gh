@@ -238,3 +238,103 @@ body { padding-top: 0; }
 .pm-missed li { display: flex; flex-direction: column; padding: .6rem 0; border-top: 1px solid var(--line); }
 .pm-missed li span { color: var(--muted); font-size: .92rem; }
 .pm-actions { display: grid; gap: .6rem; margin-top: 1.25rem; }
+
+/* ---------- Release 2.0: Formula library ---------- */
+.fl-label { display: block; font-weight: 600; font-size: .9rem; margin: .5rem 0 .4rem; }
+.fl-search { width: 100%; min-height: 3rem; padding: .5rem .75rem; margin-bottom: .9rem; font: inherit; font-size: 1.05rem; color: var(--ink); background: var(--card); border: 2px solid var(--line); border-radius: .6rem; -webkit-appearance: none; appearance: none; }
+.fl-search:focus { outline: 3px solid var(--gold); outline-offset: 1px; border-color: var(--green); }
+.fl-cat { background: transparent; border: 1px solid var(--line); color: var(--muted); font-weight: 600; }
+.fl-formula { margin: .25rem 0 .5rem; padding: .7rem .9rem; font-weight: 800; font-size: 1.05rem; color: var(--green); background: var(--paper); border-left: .3rem solid var(--gold); border-radius: 0 .5rem .5rem 0; }
+.fl-example { margin: .5rem 0; padding: .7rem .9rem; border: 1px solid var(--line); border-radius: .6rem; }
+.fl-q { margin: .2rem 0 .3rem; font-weight: 600; }
+.fl-steps { margin: 0 0 .4rem; padding-left: 1.2rem; }
+.fl-answer { margin: 0; font-weight: 800; color: var(--green); }
+.fl-tip { margin: .6rem 0 .5rem; font-size: .92rem; color: var(--muted); }
+.fl-go { width: 100%; margin-bottom: 1rem; min-height: 2.75rem; font-size: .9rem; }
+.textlink { display: inline-block; padding: .5rem 0; color: var(--green); font-weight: 700; }
+
+/* ---------- Release 2.0: IV fluids ---------- */
+.seg3 { grid-template-columns: repeat(3, 1fr); }
+.seg3 span { padding: .75rem .25rem; font-size: .85rem; }
+.field-label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: .4rem; }
+.time-pair { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.time-pair .pair.single { grid-template-columns: 1fr auto; gap: .4rem; }
+.time-pair .suffix { font-size: .85rem; }
+
+/* ---------- Modes, mascot, opening animation, onboarding ---------- */
+.pro-only { display: none; }
+html[data-mode="professional"] .pro-only { display: inline; }
+html[data-mode="professional"] .student-only { display: none !important; }
+.mode-pill { margin-left: auto; font-size: .72rem; font-weight: 800; padding: .15rem .6rem; border-radius: 1rem; background: var(--gold); color: #14231F; }
+.drawer-foot { margin-top: auto; padding: 1rem 1.25rem; border-top: 1px solid var(--line); }
+.drawer-foot .ghost { width: 100%; min-height: 2.75rem; font-size: .9rem; }
+.src-status { font-size: .85rem; font-weight: 700; color: var(--muted); }
+#about-mascot { display: flex; justify-content: center; margin: 1rem 0 .25rem; }
+
+/* Dosi, the mascot */
+.mascot { display: inline-block; }
+.mascot-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mascot-md { width: 7.5rem; }
+.mascot-xl { width: 10.5rem; }
+.mascot .m-float { animation: m-float 3.2s ease-in-out infinite; }
+.mascot .m-eye { transform-box: fill-box; transform-origin: center; animation: m-blink 4.6s infinite; }
+.mascot .m-spark { transform-box: fill-box; transform-origin: center; animation: m-twinkle 2.2s ease-in-out infinite; }
+.mascot.wave .m-arm { transform-origin: 140px 98px; animation: m-wave 1.1s ease-in-out infinite; }
+@keyframes m-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes m-blink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+@keyframes m-twinkle { 0%, 100% { transform: scale(1) rotate(0); opacity: 1; } 50% { transform: scale(1.25) rotate(15deg); opacity: .75; } }
+@keyframes m-wave { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-28deg); } }
+@keyframes m-pop { 0% { transform: scale(.4); opacity: 0; } 70% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes fade-up { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Opening animation */
+.splash { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .25rem; background: #0F5C4D; color: #fff; text-align: center; animation: splash-failsafe .3s ease 3.4s forwards; }
+@media (prefers-color-scheme: dark) { .splash { background: #0B1F1B; } }
+.splash .mascot { animation: m-pop .8s cubic-bezier(.2, 1.3, .4, 1) both; }
+.splash-name { margin: .6rem 0 0; font-size: 1.7rem; font-weight: 800; animation: fade-up .6s ease .45s both; }
+.splash-tag { margin: 0; opacity: .85; animation: fade-up .6s ease .65s both; }
+.splash-brand { position: absolute; bottom: calc(1.5rem + env(safe-area-inset-bottom)); margin: 0; font-size: .85rem; opacity: .8; }
+.splash.out { opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s; }
+html.no-splash .splash { display: none; }
+@keyframes splash-failsafe { to { opacity: 0; visibility: hidden; } }
+
+/* Onboarding */
+.ob { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 90; overflow-y: auto; background: var(--paper); }
+.ob-panel { min-height: 100%; max-width: 34rem; margin: 0 auto; padding: calc(1.5rem + env(safe-area-inset-top)) 1.5rem calc(1.5rem + env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ob-panel .mascot { margin-top: 1rem; }
+.ob-title { font-size: 1.7rem; line-height: 1.2; margin: 1.25rem 0 .75rem; color: var(--green); }
+.ob-title:focus { outline: none; }
+.ob-text { font-size: 1.05rem; margin: 0 0 1rem; max-width: 26rem; }
+.ob-list { list-style: none; margin: 0 0 1rem; padding: 0; text-align: left; }
+.ob-list li { padding: .55rem 0 .55rem 2rem; position: relative; font-weight: 600; }
+.ob-list li::before { content: "\2713"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+.roles { border: 0; padding: 0; margin: 0 0 .5rem; width: 100%; display: grid; gap: .6rem; text-align: left; }
+.role { position: relative; display: block; }
+.role input { position: absolute; opacity: 0; top: 0; left: 0; width: 100%; height: 100%; margin: 0; }
+.role-body { display: block; padding: .9rem 1rem; border: 2px solid var(--line); border-radius: .75rem; background: var(--card); }
+.role-body strong { display: block; font-size: 1.05rem; }
+.role-body small { display: block; margin-top: .15rem; color: var(--muted); font-size: .88rem; line-height: 1.35; }
+.role input:checked + .role-body { border-color: var(--green); background: color-mix(in srgb, var(--green) 10%, var(--card)); }
+.role input:focus-visible + .role-body { outline: 3px solid var(--gold); outline-offset: 2px; }
+.role.disabled .role-body { opacity: .55; }
+.ob-fine { font-size: .82rem; color: var(--muted); margin: .25rem 0 1rem; }
+.ob-check { display: flex; align-items: center; gap: .75rem; padding: .9rem 1rem; border: 2px solid var(--line); border-radius: .75rem; background: var(--card); font-weight: 700; margin: .5rem 0 1rem; }
+.ob-check input { width: 1.5rem; height: 1.5rem; accent-color: var(--green); }
+.ob-dots { display: flex; gap: .5rem; margin: auto 0 1rem; padding-top: 1rem; }
+.ob-dots span { width: .6rem; height: .6rem; border-radius: 50%; background: var(--line); }
+.ob-dots span.on { background: var(--green); width: 1.5rem; border-radius: 1rem; }
+.ob-nav { display: flex; gap: .6rem; width: 100%; margin-top: auto; }
+.ob-nav button { flex: 1; }
+.ob-nav .primary:disabled { opacity: .5; cursor: default; }
+.ob-panel > .roles + .ob-fine + .ob-nav, .ob-panel > .ob-check + .ob-dots { margin-top: auto; }
+.ob-brand { margin: 1rem 0 0; font-size: .82rem; font-weight: 600; color: var(--muted); }
+
+@supports not (background: color-mix(in srgb, red 50%, blue)) {
+  .role input:checked + .role-body { background: rgba(15, 92, 77, .1); }
+  @media (prefers-color-scheme: dark) { .role input:checked + .role-body { background: rgba(92, 201, 174, .14); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot .m-float, .mascot .m-eye, .mascot .m-spark, .mascot.wave .m-arm,
+  .splash .mascot, .splash-name, .splash-tag { animation: none; }
+  .splash.out { transition: none; }
+}
