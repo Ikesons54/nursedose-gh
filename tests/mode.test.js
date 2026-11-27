@@ -1,53 +1,43 @@
-/* NurseDose GH - remembers who is using the app (Student or Professional) and whether the intro was seen.
-   Storage is wrapped so the app still works if the phone blocks it. Works in the browser and in Node. */
-(function (root, factory) {
-  if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
-  } else {
-    root.NurseDose = root.NurseDose || {};
-    root.NurseDose.mode = factory();
-  }
-}(typeof self !== 'undefined' ? self : this, function () {
-  var MODES = ['student', 'professional'];
-  var memory = {};
-  var listeners = [];
+// Run with:  node tests/mode.test.js
+const assert = require('assert');
+const mode = require('../js/mode.js');
 
-  function read(key) {
-    try { var v = localStorage.getItem(key); return v === null ? (memory[key] || null) : v; }
-    catch (e) { return memory[key] || null; }
-  }
-  function write(key, value) {
-    memory[key] = value;
-    try { localStorage.setItem(key, value); } catch (e) { /* storage blocked: memory only */ }
-  }
+let passed = 0;
+function test(name, fn) {
+  try { fn(); passed++; console.log('PASS  ' + name); }
+  catch (e) { console.log('FAIL  ' + name + '\n      ' + e.message); process.exitCode = 1; }
+}
 
-  function get() {
-    var m = read('nd_mode');
-    return MODES.indexOf(m) !== -1 ? m : 'student';
-  }
+test('Defaults to student and not onboarded', () => {
+  assert.strictEqual(mode.get(), 'student');
+  assert.strictEqual(mode.isOnboarded(), false);
+});
 
-  function apply(m) {
-    if (typeof document !== 'undefined') document.documentElement.setAttribute('data-mode', m);
-  }
+test('Can switch to professional and back, and is told about changes', () => {
+  const seen = [];
+  mode.onChange(m => seen.push(m));
+  assert.strictEqual(mode.set('professional'), true);
+  assert.strictEqual(mode.get(), 'professional');
+  assert.strictEqual(mode.set('professional'), true);   // same value: no new event
+  assert.strictEqual(mode.set('student'), true);
+  assert.deepStrictEqual(seen, ['professional', 'student']);
+});
 
-  function set(m) {
-    if (MODES.indexOf(m) === -1) return false;
-    var changed = m !== get();
-    write('nd_mode', m);
-    apply(m);
-    if (changed) listeners.slice().forEach(function (cb) { cb(m); });
-    return true;
-  }
+test('Rejects unknown modes', () => {
+  assert.strictEqual(mode.set('admin'), false);
+  assert.strictEqual(mode.set(''), false);
+  assert.strictEqual(mode.get(), 'student');
+});
 
-  function isOnboarded() { return read('nd_onboarded') === '1'; }
-  function setOnboarded() { write('nd_onboarded', '1'); }
-  function onChange(cb) { listeners.push(cb); }
+test('Remembers the intro was seen', () => {
+  mode.setOnboarded();
+  assert.strictEqual(mode.isOnboarded(), true);
+});
 
-  // Is a menu item shown in this mode? Items without "modes" show in every mode.
-  function allowed(item, m) {
-    return !item.modes || item.modes.indexOf(m) !== -1;
-  }
+test('Menu items can be limited to a mode', () => {
+  assert.strictEqual(mode.allowed({ id: 'a' }, 'professional'), true);
+  assert.strictEqual(mode.allowed({ id: 'p', modes: ['student'] }, 'student'), true);
+  assert.strictEqual(mode.allowed({ id: 'p', modes: ['student'] }, 'professional'), false);
+});
 
-  apply(get());
-  return { get: get, set: set, isOnboarded: isOnboarded, setOnboarded: setOnboarded, onChange: onChange, allowed: allowed, MODES: MODES };
-}));
+console.log('\n' + passed + ' passed');
