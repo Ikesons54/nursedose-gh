@@ -1,0 +1,354 @@
+{
+  "formulas": [
+    {
+      "id": "f01",
+      "category": "Doses",
+      "title": "Liquid and injection dose",
+      "formula": "Ordered ÷ Stock × Volume",
+      "meaning": "Works out how many ml to give when the medicine comes as a liquid or an injection.",
+      "keywords": "syrup suspension injection ml volume dose",
+      "example": {
+        "question": "Ordered 500 mg. Stock 1000 mg in 2 ml.",
+        "steps": [
+          "500 ÷ 1000 = 0.5",
+          "0.5 × 2 = 1"
+        ],
+        "answer": "1 ml"
+      },
+      "checks": [
+        {
+          "expr": "500/1000*2",
+          "result": 1
+        }
+      ],
+      "tip": "Make the units match before you divide.",
+      "status": "draft",
+      "link": "calculator"
+    },
+    {
+      "id": "f02",
+      "category": "Doses",
+      "title": "Tablet dose",
+      "formula": "Ordered ÷ Stock",
+      "meaning": "Works out how many tablets to give.",
+      "keywords": "tablet capsule oral number of tablets",
+      "example": {
+        "question": "Ordered 1000 mg. Stock 500 mg tablets.",
+        "steps": [
+          "1000 ÷ 500 = 2"
+        ],
+        "answer": "2 tablets"
+      },
+      "checks": [
+        {
+          "expr": "1000/500",
+          "result": 2
+        }
+      ],
+      "tip": "Tablets are usually given whole or as a half. If you get something else, check again.",
+      "status": "draft",
+      "link": "calculator"
+    },
+    {
+      "id": "f03",
+      "category": "Doses",
+      "title": "Weight-based dose",
+      "formula": "Dose (mg) = mg per kg × Weight (kg)",
+      "meaning": "Some doses depend on how much the patient weighs. The order is written as mg per kg.",
+      "keywords": "weight kg mg/kg child paediatric pediatric body weight",
+      "example": {
+        "question": "Ordered 15 mg per kg. The patient weighs 20 kg.",
+        "steps": [
+          "15 × 20 = 300"
+        ],
+        "answer": "300 mg"
+      },
+      "checks": [
+        {
+          "expr": "15*20",
+          "result": 300
+        }
+      ],
+      "tip": "Check the weight is in kg, not pounds or grams.",
+      "status": "draft"
+    },
+    {
+      "id": "f04",
+      "category": "Units",
+      "title": "Weight units: kg, g, mg, mcg",
+      "formula": "1 kg = 1000 g,  1 g = 1000 mg,  1 mg = 1000 mcg",
+      "meaning": "To go to a smaller unit, multiply by 1000. To go to a bigger unit, divide by 1000.",
+      "keywords": "convert conversion gram milligram microgram kilogram mcg mg g kg",
+      "example": {
+        "question": "Change 0.25 g to mg.",
+        "steps": [
+          "g to mg is a smaller unit, so multiply by 1000",
+          "0.25 × 1000 = 250"
+        ],
+        "answer": "250 mg"
+      },
+      "checks": [
+        {
+          "expr": "0.25*1000",
+          "result": 250
+        },
+        {
+          "expr": "500/1000",
+          "result": 0.5
+        }
+      ],
+      "tip": "Going the other way: 500 mcg ÷ 1000 = 0.5 mg.",
+      "status": "draft",
+      "link": "calculator"
+    },
+    {
+      "id": "f05",
+      "category": "Units",
+      "title": "Volume units: litres and ml",
+      "formula": "1 L = 1000 ml",
+      "meaning": "To change litres to ml, multiply by 1000. To change ml to litres, divide by 1000.",
+      "keywords": "convert conversion litre liter ml millilitre volume",
+      "example": {
+        "question": "Change 1.5 L to ml.",
+        "steps": [
+          "1.5 × 1000 = 1500"
+        ],
+        "answer": "1500 ml"
+      },
+      "checks": [
+        {
+          "expr": "1.5*1000",
+          "result": 1500
+        }
+      ],
+      "tip": "Going the other way: 250 ml ÷ 1000 = 0.25 L.",
+      "status": "draft"
+    },
+    {
+      "id": "f06",
+      "category": "Units",
+      "title": "Pounds to kilograms",
+      "formula": "kg = lb ÷ 2.2",
+      "meaning": "Dose calculations need kg. 1 kg is about 2.2 lb.",
+      "keywords": "pounds lb kg weight convert",
+      "example": {
+        "question": "A patient weighs 132 lb. How many kg?",
+        "steps": [
+          "132 ÷ 2.2 = 60"
+        ],
+        "answer": "60 kg"
+      },
+      "checks": [
+        {
+          "expr": "132/2.2",
+          "result": 60
+        }
+      ],
+      "tip": "Always write the unit next to your answer.",
+      "status": "draft"
+    },
+    {
+      "id": "f07",
+      "category": "Units",
+      "title": "Hours and minutes",
+      "formula": "1 hour = 60 minutes",
+      "meaning": "Drip rate formulas often need time in minutes. Multiply hours by 60.",
+      "keywords": "time hours minutes convert drip",
+      "example": {
+        "question": "Change 2.5 hours to minutes.",
+        "steps": [
+          "2.5 × 60 = 150"
+        ],
+        "answer": "150 minutes"
+      },
+      "checks": [
+        {
+          "expr": "2.5*60",
+          "result": 150
+        }
+      ],
+      "tip": "Going the other way: 90 minutes ÷ 60 = 1.5 hours.",
+      "status": "draft"
+    },
+    {
+      "id": "f08",
+      "category": "IV fluids",
+      "title": "Flow rate in ml per hour",
+      "formula": "Rate (ml/hr) = Volume (ml) ÷ Time (hours)",
+      "meaning": "Works out how fast a drip or pump must run to give the fluid in the time ordered.",
+      "keywords": "iv drip rate infusion ml per hour fluids pump",
+      "example": {
+        "question": "1000 ml to run over 8 hours.",
+        "steps": [
+          "1000 ÷ 8 = 125"
+        ],
+        "answer": "125 ml/hr"
+      },
+      "checks": [
+        {
+          "expr": "1000/8",
+          "result": 125
+        }
+      ],
+      "tip": "Check the time is in hours.",
+      "status": "draft",
+      "link": "iv"
+    },
+    {
+      "id": "f09",
+      "category": "IV fluids",
+      "title": "Time for an infusion",
+      "formula": "Time (hours) = Volume (ml) ÷ Rate (ml/hr)",
+      "meaning": "Works out how long a bag will take to finish at a given rate.",
+      "keywords": "iv infusion duration how long finish time fluids",
+      "example": {
+        "question": "500 ml running at 125 ml/hr.",
+        "steps": [
+          "500 ÷ 125 = 4"
+        ],
+        "answer": "4 hours"
+      },
+      "checks": [
+        {
+          "expr": "500/125",
+          "result": 4
+        }
+      ],
+      "tip": "Change the answer to hours and minutes if it is not a whole number.",
+      "status": "draft",
+      "link": "iv"
+    },
+    {
+      "id": "f10",
+      "category": "IV fluids",
+      "title": "Drops per minute",
+      "formula": "Drops per minute = Volume (ml) × Drop factor ÷ Time (minutes)",
+      "meaning": "The drop factor is how many drops make 1 ml. It is printed on the giving set packet.",
+      "keywords": "iv drip drops per minute gtt drop factor giving set fluids",
+      "example": {
+        "question": "1000 ml over 10 hours. Drop factor 15 drops per ml.",
+        "steps": [
+          "10 hours × 60 = 600 minutes",
+          "1000 × 15 ÷ 600 = 25"
+        ],
+        "answer": "25 drops per minute"
+      },
+      "checks": [
+        {
+          "expr": "10*60",
+          "result": 600
+        },
+        {
+          "expr": "1000*15/600",
+          "result": 25
+        }
+      ],
+      "tip": "Use time in minutes. Round to the nearest whole drop.",
+      "status": "draft",
+      "link": "iv"
+    },
+    {
+      "id": "f11",
+      "category": "IV fluids",
+      "title": "Drops per minute from ml per hour",
+      "formula": "Drops per minute = ml per hour × Drop factor ÷ 60",
+      "meaning": "A shortcut when you already know the flow rate in ml/hr.",
+      "keywords": "iv drip drops per minute gtt drop factor ml per hour fluids",
+      "example": {
+        "question": "Rate 120 ml/hr. Drop factor 20 drops per ml.",
+        "steps": [
+          "120 × 20 = 2400",
+          "2400 ÷ 60 = 40"
+        ],
+        "answer": "40 drops per minute"
+      },
+      "checks": [
+        {
+          "expr": "120*20/60",
+          "result": 40
+        }
+      ],
+      "tip": "Check the drop factor on the giving set packet.",
+      "status": "draft"
+    },
+    {
+      "id": "f12",
+      "category": "Strengths",
+      "title": "Concentration",
+      "formula": "Concentration = Amount ÷ Volume",
+      "meaning": "Tells you how much medicine is in each ml.",
+      "keywords": "concentration strength mg per ml amount volume",
+      "example": {
+        "question": "500 mg in 10 ml. How many mg in each ml?",
+        "steps": [
+          "500 ÷ 10 = 50"
+        ],
+        "answer": "50 mg per ml"
+      },
+      "checks": [
+        {
+          "expr": "500/10",
+          "result": 50
+        },
+        {
+          "expr": "200/50",
+          "result": 4
+        }
+      ],
+      "tip": "You can also find the dose: ordered ÷ concentration. For 200 mg: 200 ÷ 50 = 4 ml.",
+      "status": "draft"
+    },
+    {
+      "id": "f13",
+      "category": "Strengths",
+      "title": "Percentage strength",
+      "formula": "x% means x g in 100 ml",
+      "meaning": "A percentage on a fluid label tells you how many grams are in 100 ml.",
+      "keywords": "percentage percent % solution strength saline dextrose",
+      "example": {
+        "question": "Sodium chloride 0.9%. How many mg in 100 ml?",
+        "steps": [
+          "0.9% means 0.9 g in 100 ml",
+          "0.9 × 1000 = 900"
+        ],
+        "answer": "900 mg in 100 ml"
+      },
+      "checks": [
+        {
+          "expr": "0.9*1000",
+          "result": 900
+        },
+        {
+          "expr": "0.9*10",
+          "result": 9
+        }
+      ],
+      "tip": "So 1 litre of 0.9% has 9 g, because 1 litre is 10 times 100 ml.",
+      "status": "draft"
+    },
+    {
+      "id": "f14",
+      "category": "Strengths",
+      "title": "Ratio strength",
+      "formula": "1 in 1000 means 1 g in 1000 ml",
+      "meaning": "A ratio like 1:1000 means 1 g of medicine in that many ml.",
+      "keywords": "ratio 1:1000 1 in 1000 strength",
+      "example": {
+        "question": "A solution is 1:1000. How many mg in each ml?",
+        "steps": [
+          "1 g = 1000 mg, so 1000 mg in 1000 ml",
+          "1000 ÷ 1000 = 1"
+        ],
+        "answer": "1 mg per ml"
+      },
+      "checks": [
+        {
+          "expr": "1000/1000",
+          "result": 1
+        }
+      ],
+      "tip": "Change grams to mg first, then divide.",
+      "status": "draft"
+    }
+  ]
+}
