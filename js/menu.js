@@ -4,7 +4,8 @@
 (function () {
   var ITEMS = [
     { id: 'calculator', label: 'Calculator', view: 'calculator' },
-    { id: 'practice', label: 'Practice questions', view: 'practice', filter: 'all', children: [
+    { id: 'practice-mode', label: 'Practice mode', view: 'practice-mode', highlight: true },
+    { id: 'practice', label: 'Question bank', view: 'practice', filter: 'all', children: [
       { id: 'practice-tablets', label: 'Tablets', view: 'practice', filter: 'tablets' },
       { id: 'practice-syrups', label: 'Syrups', view: 'practice', filter: 'syrups' },
       { id: 'practice-injections', label: 'Injections', view: 'practice', filter: 'injections' }
@@ -114,6 +115,7 @@
     document.title = item.id === 'calculator' ? 'NurseDose GH' : item.label + ' | NurseDose GH';
 
     if (item.filter && window.NurseDose.questions) window.NurseDose.questions.setFilter(item.filter);
+    if (item.view === 'practice-mode' && window.NurseDose.practice) window.NurseDose.practice.onShow();
 
     window.scrollTo(0, 0);
     var view = document.querySelector('[data-view="' + item.view + '"]');
