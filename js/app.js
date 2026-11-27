@@ -39,7 +39,7 @@
     }
 
     var card = el('div', 'answer-card');
-    card.appendChild(el('span', 'give', 'Give'));
+    card.appendChild(el('span', 'give', r.label || 'Give'));
     card.appendChild(el('span', 'big', r.answerText));
     container.appendChild(card);
     container.appendChild(el('p', 'learn-note', 'Learning aid only. Check with your tutor.'));
