@@ -272,7 +272,10 @@
     showPanel('setup');
   }
 
-  window.NurseDose.practice = { onShow: onShow };
+  // Used by Exam mode: practise a given list of questions.
+  function startWith(list, cat) { begin(cat || 'all', list); }
+
+  window.NurseDose.practice = { onShow: onShow, startWith: startWith };
 
   renderSetup();
   showPanel('setup');
