@@ -14,8 +14,17 @@
   <link rel="icon" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="css/styles.css">
+  <script>try{var m=localStorage.getItem('nd_mode');document.documentElement.setAttribute('data-mode',m==='professional'?'professional':'student');if(sessionStorage.getItem('nd_splash'))document.documentElement.className+=' no-splash'}catch(e){document.documentElement.setAttribute('data-mode','student')}</script>
 </head>
 <body>
+  <div id="splash" class="splash" aria-hidden="true">
+    <div id="splash-mascot"></div>
+    <p class="splash-name">NurseDose GH</p>
+    <p class="splash-tag">Dose calculations made clear</p>
+    <p class="splash-brand">Powered by FWXplus</p>
+  </div>
+  <div id="onboarding" class="ob" role="dialog" aria-modal="true" aria-labelledby="ob-title" hidden></div>
+
   <header class="bar">
     <div class="top">
       <button id="menuBtn" class="icon-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
@@ -23,6 +32,7 @@
       </button>
       <span class="mark" aria-hidden="true">Rx</span>
       <span class="name">NurseDose GH</span>
+      <span class="mode-pill" id="modePill" hidden>Professional</span>
     </div>
   </header>
 
@@ -35,14 +45,15 @@
       </button>
     </div>
     <ul id="menu-list" class="menu-list"></ul>
+    <div class="drawer-foot"><button id="modeBtn" class="ghost" type="button"></button></div>
   </nav>
 
   <main>
     <!-- Calculator (home) -->
     <section id="view-calculator" data-view="calculator">
       <section class="intro">
-        <h1 tabindex="-1">Understand drug calculations. Don’t cram them.</h1>
-        <p>Step-by-step dose calculations for Ghana nursing students. Works without internet.</p>
+        <h1 tabindex="-1"><span class="student-only">Understand drug calculations. Don’t cram them.</span><span class="pro-only">Dose and IV calculations, step by step.</span></h1>
+        <p><span class="student-only">Step-by-step dose calculations for Ghana nursing students. Works without internet.</span><span class="pro-only">Clear working you can check, for Ghana health professionals. Works without internet.</span></p>
       </section>
 
       <section class="calc" aria-labelledby="calc-title">
@@ -97,15 +108,78 @@
       </section>
 
       <div class="shortcuts">
-        <a class="shortcut" href="#practice-mode">
-          <strong>Practice mode <span class="new">New</span></strong>
+        <a class="shortcut" href="#iv">
+          <strong>IV fluids <span class="new">New</span></strong>
+          <span>Flow rate, drops per minute and time</span>
+        </a>
+        <a class="shortcut student-only" href="#practice-mode">
+          <strong>Practice mode</strong>
           <span>Answer questions and get instant feedback</span>
         </a>
-        <a class="shortcut" href="#practice">
+        <a class="shortcut student-only" href="#practice">
           <strong>Question bank</strong>
           <span>30 questions with worked answers</span>
         </a>
       </div>
+    </section>
+
+    <!-- IV fluids -->
+    <section id="view-iv" data-view="iv" hidden>
+      <h1 class="view-title" tabindex="-1">IV fluids</h1>
+      <p class="muted" id="iv-hint"></p>
+
+      <section class="calc" aria-labelledby="iv-title">
+        <h2 id="iv-title">What do you want to find?</h2>
+        <form id="iv-form" novalidate>
+          <fieldset class="seg seg3">
+            <legend class="sr">What to find</legend>
+            <label><input type="radio" name="ivmode" value="rate" checked><span>ml per hour</span></label>
+            <label><input type="radio" name="ivmode" value="drops"><span>Drops per min</span></label>
+            <label><input type="radio" name="ivmode" value="time"><span>How long</span></label>
+          </fieldset>
+
+          <div class="field">
+            <label for="iv-volume">Volume of fluid</label>
+            <div class="pair single">
+              <input id="iv-volume" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 1000">
+              <span class="suffix">ml</span>
+            </div>
+          </div>
+
+          <div class="field" id="iv-time-row">
+            <span class="field-label" id="iv-time-label">Time to run over</span>
+            <div class="time-pair" role="group" aria-labelledby="iv-time-label">
+              <div class="pair single"><input id="iv-hours" type="number" inputmode="decimal" step="any" min="0" placeholder="8" aria-label="Hours"><span class="suffix">hours</span></div>
+              <div class="pair single"><input id="iv-minutes" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="Minutes"><span class="suffix">min</span></div>
+            </div>
+          </div>
+
+          <div class="field" id="iv-rate-row" hidden>
+            <label for="iv-rate">Flow rate</label>
+            <div class="pair single">
+              <input id="iv-rate" type="number" inputmode="decimal" step="any" min="0" placeholder="e.g. 125">
+              <span class="suffix">ml/hr</span>
+            </div>
+          </div>
+
+          <div class="field" id="iv-drop-row" hidden>
+            <label for="iv-drop">Drop factor (printed on the giving set packet)</label>
+            <select id="iv-drop">
+              <option value="">Choose…</option>
+              <option value="10">10 drops per ml</option>
+              <option value="15">15 drops per ml</option>
+              <option value="20">20 drops per ml</option>
+              <option value="60">60 drops per ml (micro-drip)</option>
+            </select>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="primary">Calculate</button>
+            <button type="button" id="iv-clear" class="ghost">Clear</button>
+          </div>
+        </form>
+        <div id="iv-result" aria-live="polite"></div>
+      </section>
     </section>
 
     <!-- Practice mode -->
@@ -125,9 +199,21 @@
       <p id="qstatus" class="muted" aria-live="polite"></p>
     </section>
 
+    <!-- Formula library -->
+    <section id="view-formulas" data-view="formulas" hidden>
+      <h1 class="view-title" tabindex="-1">Formula library</h1>
+      <p class="muted">Search for a formula, then open it to see a worked example.</p>
+      <label class="fl-label" for="fl-search">Search</label>
+      <input id="fl-search" class="fl-search" type="search" placeholder="e.g. drip, kg, tablet" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <div id="fl-chips" class="chips"></div>
+      <div id="fl-list"></div>
+      <p id="fl-status" class="muted" aria-live="polite"></p>
+    </section>
+
     <!-- Quick reference -->
     <section id="view-reference" data-view="reference" hidden>
       <h1 class="view-title" tabindex="-1">Quick reference</h1>
+      <p><a class="textlink" href="#formulas">See all formulas with examples →</a></p>
 
       <div class="ref-card">
         <h2>The formulas</h2>
@@ -168,6 +254,15 @@
       </div>
     </section>
 
+    <!-- Sources -->
+    <section id="view-sources" data-view="sources" hidden>
+      <h1 class="view-title" tabindex="-1">Sources</h1>
+      <p>Professional content will always show its source and edition. These are Ghana’s national reference documents.</p>
+      <p class="muted">The calculators and formulas in this app are standard arithmetic and are not copied from these documents. Guideline-based content, such as doses and protocols, will be added later with the exact source and edition shown, and checked by clinicians first.</p>
+      <div id="src-list"></div>
+      <p id="src-note" class="muted" aria-live="polite">Loading sources…</p>
+    </section>
+
     <!-- Install the app -->
     <section id="view-install" data-view="install" hidden>
       <h1 class="view-title" tabindex="-1">Install the app</h1>
@@ -200,6 +295,7 @@
     <!-- About and safety -->
     <section id="view-about" data-view="about" hidden>
       <h1 class="view-title" tabindex="-1">About and safety</h1>
+      <div id="about-mascot"></div>
       <div class="ref-card">
         <h2>NurseDose GH</h2>
         <p>Helps Ghana nursing students learn drug dose calculations, step by step. It works without internet once installed.</p>
@@ -209,8 +305,9 @@
         <p>This app is a study aid. Always check doses with your tutor and your hospital’s protocol before giving any medicine.</p>
         <p>Practice questions marked <strong>Draft</strong> are still waiting for tutor review.</p>
       </div>
+      <button id="replayBtn" class="ghost install-btn" type="button">Replay the intro</button>
       <p class="brand">Powered by FWXplus</p>
-      <p class="muted">Version 0.8 (Practice mode added)</p>
+      <p class="muted">Version 0.11 (Onboarding, modes and sources)</p>
     </section>
   </main>
 
@@ -219,13 +316,20 @@
     <p class="brand">Powered by FWXplus</p>
   </footer>
 
+  <script src="js/mode.js"></script>
   <script src="js/units.js"></script>
   <script src="js/calculator.js"></script>
+  <script src="js/iv.js"></script>
   <script src="js/grader.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/mascot.js"></script>
   <script src="js/questions.js"></script>
   <script src="js/practice.js"></script>
+  <script src="js/ivscreen.js"></script>
+  <script src="js/formulas.js"></script>
+  <script src="js/sources.js"></script>
   <script src="js/menu.js"></script>
+  <script src="js/intro.js"></script>
   <script src="js/pwa.js"></script>
 </body>
 </html>
