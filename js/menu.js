@@ -1,23 +1,29 @@
 /* NurseDose GH - side menu and screen switching.
    To hide a menu item, set enabled:false. To show a "New" badge, set highlight:true.
+   To show an item only in some modes, set modes:['student'] (or ['professional']).
    Later features are listed at the bottom, switched off until they are built. */
 (function () {
+  var mode = window.NurseDose.mode;
+
   var ITEMS = [
     { id: 'calculator', label: 'Calculator', view: 'calculator' },
-    { id: 'practice-mode', label: 'Practice mode', view: 'practice-mode', highlight: true },
-    { id: 'practice', label: 'Question bank', view: 'practice', filter: 'all', children: [
+    { id: 'iv', label: 'IV fluids', view: 'iv' },
+    { id: 'practice-mode', label: 'Practice mode', view: 'practice-mode', modes: ['student'] },
+    { id: 'practice', label: 'Question bank', view: 'practice', filter: 'all', modes: ['student'], children: [
       { id: 'practice-tablets', label: 'Tablets', view: 'practice', filter: 'tablets' },
       { id: 'practice-syrups', label: 'Syrups', view: 'practice', filter: 'syrups' },
       { id: 'practice-injections', label: 'Injections', view: 'practice', filter: 'injections' }
     ] },
+    { id: 'formulas', label: 'Formula library', view: 'formulas' },
     { id: 'reference', label: 'Quick reference', view: 'reference' },
+    { id: 'sources', label: 'Sources', view: 'sources', highlight: true },
     { id: 'install', label: 'Install the app', view: 'install' },
     { id: 'about', label: 'About and safety', view: 'about' }
 
     // Later (switched off until built):
-    // { id: 'exam', label: 'Exam mode', view: 'exam', enabled: false },
+    // { id: 'exam', label: 'Exam mode', view: 'exam', enabled: false, modes: ['student'] },
     // { id: 'progress', label: 'My progress', view: 'progress', enabled: false },
-    // { id: 'premium', label: 'Premium', view: 'premium', enabled: false, highlight: true }
+    // { id: 'pharmacy', label: 'Pharmacy tools', view: 'pharmacy', enabled: false, highlight: true }
   ];
 
   var drawer = document.getElementById('drawer');
@@ -32,7 +38,7 @@
   var links = {};        // id -> <a>
   var currentId = null;
 
-  function isOn(item) { return item.enabled !== false; }
+  function isOn(item) { return item.enabled !== false && mode.allowed(item, mode.get()); }
 
   function makeLink(item) {
     var a = document.createElement('a');
@@ -55,6 +61,9 @@
   }
 
   function buildMenu() {
+    listEl.textContent = '';
+    routes = {};
+    links = {};
     ITEMS.filter(isOn).forEach(function (item) {
       var li = document.createElement('li');
       li.appendChild(makeLink(item));
@@ -140,7 +149,14 @@
   window.addEventListener('hashchange', function () { showRoute(location.hash.slice(1)); });
   window.addEventListener('popstate', function () { showRoute(location.hash.slice(1)); });
 
+  // The menu follows the chosen mode.
+  mode.onChange(function () {
+    buildMenu();
+    if (routes[currentId]) showRoute(currentId, true);
+    else go('calculator');
+  });
+
   buildMenu();
-  window.NurseDose.nav = { go: go };
+  window.NurseDose.nav = { go: go, closeDrawer: closeDrawer };
   showRoute(location.hash.slice(1), true);
 })();
