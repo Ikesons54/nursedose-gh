@@ -109,8 +109,12 @@
 
       <div class="shortcuts">
         <a class="shortcut" href="#iv">
-          <strong>IV fluids <span class="new">New</span></strong>
+          <strong>IV fluids</strong>
           <span>Flow rate, drops per minute and time</span>
+        </a>
+        <a class="shortcut student-only" href="#exam">
+          <strong>Exam mode <span class="new">New</span></strong>
+          <span>Timed test with a score and weak areas</span>
         </a>
         <a class="shortcut student-only" href="#practice-mode">
           <strong>Practice mode</strong>
@@ -188,6 +192,14 @@
       <div id="pm-setup"></div>
       <div id="pm-quiz" hidden></div>
       <div id="pm-results" hidden></div>
+    </section>
+
+    <!-- Exam mode -->
+    <section id="view-exam" data-view="exam" hidden>
+      <h1 class="view-title" tabindex="-1">Exam mode</h1>
+      <div id="ex-setup"></div>
+      <div id="ex-quiz" hidden></div>
+      <div id="ex-results" hidden></div>
     </section>
 
     <!-- Question bank -->
@@ -307,7 +319,7 @@
       </div>
       <button id="replayBtn" class="ghost install-btn" type="button">Replay the intro</button>
       <p class="brand">Powered by FWXplus</p>
-      <p class="muted">Version 0.11 (Onboarding, modes and sources)</p>
+      <p class="muted">Version 0.12 (Exam mode added)</p>
     </section>
   </main>
 
@@ -321,11 +333,13 @@
   <script src="js/calculator.js"></script>
   <script src="js/iv.js"></script>
   <script src="js/grader.js"></script>
+  <script src="js/examlogic.js"></script>
   <script src="js/app.js"></script>
   <script src="js/mascot.js"></script>
   <script src="js/questions.js"></script>
   <script src="js/practice.js"></script>
   <script src="js/ivscreen.js"></script>
+  <script src="js/exam.js"></script>
   <script src="js/formulas.js"></script>
   <script src="js/sources.js"></script>
   <script src="js/menu.js"></script>
