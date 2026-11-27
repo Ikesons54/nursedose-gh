@@ -2,7 +2,7 @@
    Saves the app on the phone so it works without internet.
    Serves the saved copy straight away, then quietly updates it when online.
    To force everyone onto new files, change VERSION. */
-var VERSION = 'nursedose-v6';
+var VERSION = 'nursedose-v7';
 var ASSETS = [
   './',
   'index.html',
@@ -13,12 +13,14 @@ var ASSETS = [
   'js/calculator.js',
   'js/iv.js',
   'js/grader.js',
+  'js/examlogic.js',
   'js/app.js',
   'js/mascot.js',
   'js/questions.js',
   'js/practice.js',
   'js/formulas.js',
   'js/ivscreen.js',
+  'js/exam.js',
   'js/sources.js',
   'js/menu.js',
   'js/intro.js',
